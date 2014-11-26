@@ -1490,7 +1490,7 @@ function($rootScope, $state, $location, $window, $timeout, $ionicViewSwitcher, $
         // create an element from the viewLocals template
         ele = $ionicViewSwitcher.createViewEle(viewLocals);
         if (this.isAbstractEle(ele, viewLocals)) {
-          void 0;
+          console.log('VIEW', 'abstractView', DIRECTION_NONE, viewHistory.currentView);
           return {
             action: 'abstractView',
             direction: DIRECTION_NONE,
@@ -1605,7 +1605,7 @@ function($rootScope, $state, $location, $window, $timeout, $ionicViewSwitcher, $
         }
       }
 
-      void 0;
+      console.log('VIEW', action, direction, viewHistory.currentView);
 
       hist.cursor = viewHistory.currentView.index;
 
@@ -9813,7 +9813,7 @@ IonicModule
  * This is good to do because the template will be cached for very fast loading, instead of
  * having to fetch them from the network.
  *
- ## Caching
+ * ## Caching
  *
  * By default, views are cached to improve performance. When a view is navigated away from, its
  * element is left in the DOM, and its scope is disconnected from the `$watch` cycle. When
@@ -10819,7 +10819,7 @@ function($timeout, $compile, $ionicSlideBoxDelegate, $ionicHistory) {
       };
 
       this.onPagerClick = function(index) {
-        void 0;
+        console.log('pagerClick', index);
         $scope.pagerClick({index: index});
       };
 
