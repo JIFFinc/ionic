@@ -4604,8 +4604,8 @@ ionic.views.Scroll = ionic.views.View.inherit({
 
         self.hintResize();
         self.scrollBy(
-          (e.wheelDeltaX || e.deltaX)/self.options.wheelDampen,
-          (-e.wheelDeltaY || e.deltaY)/self.options.wheelDampen
+          (e.wheelDeltaX || e.deltaX || 0) / self.options.wheelDampen,
+          (-e.wheelDeltaY || e.deltaY || 0) / self.options.wheelDampen
         );
 
         self.__fadeScrollbars('in');
