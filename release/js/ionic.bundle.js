@@ -1954,7 +1954,7 @@ window.ionic.version = '1.0.0-beta.13';
      */
     ready: function(cb) {
       // run through tasks to complete now that the device is ready
-      if(this.isReady) {
+      if (this.isReady) {
         cb();
       } else {
         // the platform isn't ready yet, add it to this array
@@ -1969,9 +1969,9 @@ window.ionic.version = '1.0.0-beta.13';
     detect: function() {
       ionic.Platform._checkPlatforms();
 
-      ionic.requestAnimationFrame(function(){
+      ionic.requestAnimationFrame(function() {
         // only add to the body class if we got platform info
-        for(var i = 0; i < ionic.Platform.platforms.length; i++) {
+        for (var i = 0; i < ionic.Platform.platforms.length; i++) {
           document.body.classList.add('platform-' + ionic.Platform.platforms[i]);
         }
       });
@@ -2010,22 +2010,22 @@ window.ionic.version = '1.0.0-beta.13';
       this.platforms = [];
       var grade = 'a';
 
-      if(this.isWebView()) {
+      if (this.isWebView()) {
         this.platforms.push('webview');
         this.platforms.push('cordova');
       } else {
         this.platforms.push('browser');
       }
-      if(this.isIPad()) this.platforms.push('ipad');
+      if (this.isIPad()) this.platforms.push('ipad');
 
       var platform = this.platform();
-      if(platform) {
+      if (platform) {
         this.platforms.push(platform);
 
         var version = this.version();
-        if(version) {
+        if (version) {
           var v = version.toString();
-          if(v.indexOf('.') > 0) {
+          if (v.indexOf('.') > 0) {
             v = v.replace('.', '_');
           } else {
             v += '_0';
@@ -2033,9 +2033,9 @@ window.ionic.version = '1.0.0-beta.13';
           this.platforms.push(platform + v.split('_')[0]);
           this.platforms.push(platform + v);
 
-          if(this.isAndroid() && version < 4.4) {
+          if (this.isAndroid() && version < 4.4) {
             grade = (version < 4 ? 'c' : 'b');
-          } else if(this.isWindowsPhone()) {
+          } else if (this.isWindowsPhone()) {
             grade = 'b';
           }
         }
@@ -2058,7 +2058,7 @@ window.ionic.version = '1.0.0-beta.13';
      * @returns {boolean} Whether we are running on iPad.
      */
     isIPad: function() {
-      if( /iPad/i.test(ionic.Platform.navigator.platform) ) {
+      if (/iPad/i.test(ionic.Platform.navigator.platform)) {
         return true;
       }
       return /iPad/i.test(this.ua);
@@ -2095,7 +2095,7 @@ window.ionic.version = '1.0.0-beta.13';
      */
     platform: function() {
       // singleton to get the platform name
-      if(platformName === null) this.setPlatform(this.device().platform);
+      if (platformName === null) this.setPlatform(this.device().platform);
       return platformName;
     },
 
@@ -2103,13 +2103,13 @@ window.ionic.version = '1.0.0-beta.13';
      * @private
      */
     setPlatform: function(n) {
-      if(typeof n != 'undefined' && n !== null && n.length) {
+      if (typeof n != 'undefined' && n !== null && n.length) {
         platformName = n.toLowerCase();
-      } else if(this.ua.indexOf('Android') > 0) {
+      } else if (this.ua.indexOf('Android') > 0) {
         platformName = ANDROID;
-      } else if(this.ua.indexOf('iPhone') > -1 || this.ua.indexOf('iPad') > -1 || this.ua.indexOf('iPod') > -1) {
+      } else if (this.ua.indexOf('iPhone') > -1 || this.ua.indexOf('iPad') > -1 || this.ua.indexOf('iPod') > -1) {
         platformName = IOS;
-      } else if(this.ua.indexOf('Windows Phone') > -1) {
+      } else if (this.ua.indexOf('Windows Phone') > -1) {
         platformName = WINDOWS_PHONE;
       } else {
         platformName = ionic.Platform.navigator.platform && navigator.platform.toLowerCase().split(' ')[0] || '';
@@ -2123,7 +2123,7 @@ window.ionic.version = '1.0.0-beta.13';
      */
     version: function() {
       // singleton to get the platform version
-      if(platformVersion === null) this.setVersion(this.device().version);
+      if (platformVersion === null) this.setVersion(this.device().version);
       return platformVersion;
     },
 
@@ -2131,10 +2131,10 @@ window.ionic.version = '1.0.0-beta.13';
      * @private
      */
     setVersion: function(v) {
-      if(typeof v != 'undefined' && v !== null) {
+      if (typeof v != 'undefined' && v !== null) {
         v = v.split('.');
         v = parseFloat(v[0] + '.' + (v.length > 1 ? v[1] : 0));
-        if(!isNaN(v)) {
+        if (!isNaN(v)) {
           platformVersion = v;
           return;
         }
@@ -2149,10 +2149,10 @@ window.ionic.version = '1.0.0-beta.13';
         'ios': /OS (\d+)_(\d+)?/,
         'windowsphone': /Windows Phone (\d+).(\d+)?/
       };
-      if(versionMatch[pName]) {
-        v = this.ua.match( versionMatch[pName] );
-        if(v &&  v.length > 2) {
-          platformVersion = parseFloat( v[1] + '.' + v[2] );
+      if (versionMatch[pName]) {
+        v = this.ua.match(versionMatch[pName]);
+        if (v &&  v.length > 2) {
+          platformVersion = parseFloat(v[1] + '.' + v[2]);
         }
       }
     },
@@ -2161,14 +2161,14 @@ window.ionic.version = '1.0.0-beta.13';
     is: function(type) {
       type = type.toLowerCase();
       // check if it has an array of platforms
-      if(this.platforms) {
-        for(var x = 0; x < this.platforms.length; x++) {
-          if(this.platforms[x] === type) return true;
+      if (this.platforms) {
+        for (var x = 0; x < this.platforms.length; x++) {
+          if (this.platforms[x] === type) return true;
         }
       }
       // exact match
       var pName = this.platform();
-      if(pName) {
+      if (pName) {
         return pName === type.toLowerCase();
       }
 
@@ -2182,7 +2182,7 @@ window.ionic.version = '1.0.0-beta.13';
      * @description Exit the app.
      */
     exitApp: function() {
-      this.ready(function(){
+      this.ready(function() {
         navigator.app && navigator.app.exitApp && navigator.app.exitApp();
       });
     },
@@ -2196,10 +2196,10 @@ window.ionic.version = '1.0.0-beta.13';
     showStatusBar: function(val) {
       // Only useful when run within cordova
       this._showStatusBar = val;
-      this.ready(function(){
+      this.ready(function() {
         // run this only when or if the platform (cordova) is ready
-        ionic.requestAnimationFrame(function(){
-          if(ionic.Platform._showStatusBar) {
+        ionic.requestAnimationFrame(function() {
+          if (ionic.Platform._showStatusBar) {
             // they do not want it to be full screen
             window.StatusBar && window.StatusBar.show();
             document.body.classList.remove('status-bar-hide');
@@ -2225,22 +2225,22 @@ window.ionic.version = '1.0.0-beta.13';
       this.isFullScreen = (showFullScreen !== false);
 
       // add/remove the fullscreen classname to the body
-      ionic.DomUtil.ready(function(){
+      ionic.DomUtil.ready(function() {
         // run this only when or if the DOM is ready
-        ionic.requestAnimationFrame(function(){
+        ionic.requestAnimationFrame(function() {
           // fixing pane height before we adjust this
           panes = document.getElementsByClassName('pane');
-          for(var i = 0;i<panes.length;i++){
-            panes[i].style.height = panes[i].offsetHeight+"px";
+          for (var i = 0; i < panes.length; i++) {
+            panes[i].style.height = panes[i].offsetHeight + "px";
           }
-          if(ionic.Platform.isFullScreen) {
+          if (ionic.Platform.isFullScreen) {
             document.body.classList.add('fullscreen');
           } else {
             document.body.classList.remove('fullscreen');
           }
         });
         // showStatusBar: default is false if no param provided
-        ionic.Platform.showStatusBar( (showStatusBar === true) );
+        ionic.Platform.showStatusBar((showStatusBar === true));
       });
     }
 
@@ -2253,7 +2253,7 @@ window.ionic.version = '1.0.0-beta.13';
 
   // setup listeners to know when the device is ready to go
   function onWindowLoad() {
-    if(ionic.Platform.isWebView()) {
+    if (ionic.Platform.isWebView()) {
       // the window and scripts are fully loaded, and a cordova/phonegap
       // object exists then let's listen for the deviceready
       document.addEventListener("deviceready", onPlatformReady, false);
@@ -2262,7 +2262,7 @@ window.ionic.version = '1.0.0-beta.13';
       // cordova/phonegap object, so its just a browser, not a webview wrapped w/ cordova
       onPlatformReady();
     }
-    if (windowLoadListenderAttached){
+    if (windowLoadListenderAttached) {
       window.removeEventListener("load", onWindowLoad, false);
     }
   }
@@ -2272,21 +2272,21 @@ window.ionic.version = '1.0.0-beta.13';
     windowLoadListenderAttached = true;
     window.addEventListener("load", onWindowLoad, false);
   }
-  
+
   window.addEventListener("load", onWindowLoad, false);
 
   function onPlatformReady() {
     // the device is all set to go, init our own stuff then fire off our event
     ionic.Platform.isReady = true;
     ionic.Platform.detect();
-    for(var x=0; x<readyCallbacks.length; x++) {
+    for (var x = 0; x < readyCallbacks.length; x++) {
       // fire off all the callbacks that were added before the platform was ready
       readyCallbacks[x]();
     }
     readyCallbacks = [];
     ionic.trigger('platformready', { target: document });
 
-    ionic.requestAnimationFrame(function(){
+    ionic.requestAnimationFrame(function() {
       document.body.classList.add('platform-ready');
     });
   }
@@ -2305,7 +2305,7 @@ window.ionic.version = '1.0.0-beta.13';
     var i, keys = ['webkitTransform', 'transform', '-webkit-transform', 'webkit-transform',
                    '-moz-transform', 'moz-transform', 'MozTransform', 'mozTransform', 'msTransform'];
 
-    for(i = 0; i < keys.length; i++) {
+    for (i = 0; i < keys.length; i++) {
       if (document.documentElement.style[keys[i]] !== undefined) {
         ionic.CSS.TRANSFORM = keys[i];
         break;
@@ -2314,7 +2314,7 @@ window.ionic.version = '1.0.0-beta.13';
 
     // transition
     keys = ['webkitTransition', 'mozTransition', 'msTransition', 'transition'];
-    for(i = 0; i < keys.length; i++) {
+    for (i = 0; i < keys.length; i++) {
       if (document.documentElement.style[keys[i]] !== undefined) {
         ionic.CSS.TRANSITION = keys[i];
         break;
@@ -2341,7 +2341,7 @@ window.ionic.version = '1.0.0-beta.13';
           return function() {
             var x, classes = self.className.split(/\s+/);
 
-            for(x=0; x<arguments.length; x++) {
+            for (x = 0; x < arguments.length; x++) {
               fn(classes, classes.indexOf(arguments[x]), arguments[x]);
             }
 
@@ -2496,7 +2496,7 @@ ionic.tap = {
     tapEventListener('mouseup');
     tapEventListener('mousedown');
 
-    if( window.navigator.pointerEnabled ) {
+    if (window.navigator.pointerEnabled) {
       tapEventListener('pointerdown');
       tapEventListener('pointerup');
       tapEventListener('pointcancel');
@@ -2518,7 +2518,7 @@ ionic.tap = {
     tapEventListener('focusout');
 
     return function() {
-      for(var type in tapEventListeners) {
+      for (var type in tapEventListeners) {
         tapEventListener(type, false);
       }
       tapDoc = null;
@@ -2541,7 +2541,7 @@ ionic.tap = {
     return !!ele &&
            (ele.tagName == 'TEXTAREA' ||
             ele.contentEditable === 'true' ||
-            (ele.tagName == 'INPUT' && !(/^(radio|checkbox|range|file|submit|reset)$/i).test(ele.type)) );
+            (ele.tagName == 'INPUT' && !(/^(radio|checkbox|range|file|submit|reset)$/i).test(ele.type)));
   },
 
   isDateInput: function(ele) {
@@ -2553,7 +2553,7 @@ ionic.tap = {
     var container = tapContainingElement(ele, false);
 
     return !!container &&
-           ionic.tap.isTextInput( tapTargetElement( container ) );
+           ionic.tap.isTextInput(tapTargetElement(container));
   },
 
   containsOrIsTextInput: function(ele) {
@@ -2561,14 +2561,14 @@ ionic.tap = {
   },
 
   cloneFocusedInput: function(container, scrollIntance) {
-    if(ionic.tap.hasCheckedClone) return;
+    if (ionic.tap.hasCheckedClone) return;
     ionic.tap.hasCheckedClone = true;
 
-    ionic.requestAnimationFrame(function(){
+    ionic.requestAnimationFrame(function() {
       var focusInput = container.querySelector(':focus');
-      if( ionic.tap.isTextInput(focusInput) ) {
+      if (ionic.tap.isTextInput(focusInput)) {
         var clonedInput = focusInput.parentElement.querySelector('.cloned-text-input');
-        if(!clonedInput) {
+        if (!clonedInput) {
           clonedInput = document.createElement(focusInput.tagName);
           clonedInput.placeholder = focusInput.placeholder;
           clonedInput.type = focusInput.type;
@@ -2594,16 +2594,16 @@ ionic.tap = {
   removeClonedInputs: function(container, scrollIntance) {
     ionic.tap.hasCheckedClone = false;
 
-    ionic.requestAnimationFrame(function(){
+    ionic.requestAnimationFrame(function() {
       var clonedInputs = container.querySelectorAll('.cloned-text-input');
       var previousInputFocus = container.querySelectorAll('.previous-input-focus');
       var x;
 
-      for(x=0; x<clonedInputs.length; x++) {
-        clonedInputs[x].parentElement.removeChild( clonedInputs[x] );
+      for (x = 0; x < clonedInputs.length; x++) {
+        clonedInputs[x].parentElement.removeChild(clonedInputs[x]);
       }
 
-      for(x=0; x<previousInputFocus.length; x++) {
+      for (x = 0; x < previousInputFocus.length; x++) {
         previousInputFocus[x].classList.remove('previous-input-focus');
         previousInputFocus[x].style.top = '';
         previousInputFocus[x].focus();
@@ -2612,7 +2612,7 @@ ionic.tap = {
   },
 
   requiresNativeClick: function(ele) {
-    if(!ele || ele.disabled || (/^(file|range)$/i).test(ele.type) || (/^(object|video)$/i).test(ele.tagName) || ionic.tap.isLabelContainingFileInput(ele) ) {
+    if (!ele || ele.disabled || (/^(file|range)$/i).test(ele.type) || (/^(object|video)$/i).test(ele.tagName) || ionic.tap.isLabelContainingFileInput(ele)) {
       return true;
     }
     return ionic.tap.isElementTapDisabled(ele);
@@ -2620,17 +2620,17 @@ ionic.tap = {
 
   isLabelContainingFileInput: function(ele) {
     var lbl = tapContainingElement(ele);
-    if(lbl.tagName !== 'LABEL') return false;
+    if (lbl.tagName !== 'LABEL') return false;
     var fileInput = lbl.querySelector('input[type=file]');
-    if(fileInput && fileInput.disabled === false) return true;
+    if (fileInput && fileInput.disabled === false) return true;
     return false;
   },
 
   isElementTapDisabled: function(ele) {
-    if(ele && ele.nodeType === 1) {
+    if (ele && ele.nodeType === 1) {
       var element = ele;
-      while(element) {
-        if( (element.dataset ? element.dataset.tapDisabled : element.getAttribute('data-tap-disabled')) == 'true' ) {
+      while (element) {
+        if ((element.dataset ? element.dataset.tapDisabled : element.getAttribute('data-tap-disabled')) == 'true') {
           return true;
         }
         element = element.parentElement;
@@ -2654,10 +2654,10 @@ ionic.tap = {
     // This method can get coordinates for both a mouse click
     // or a touch depending on the given event
     var c = { x:0, y:0 };
-    if(event) {
+    if (event) {
       var touches = event.touches && event.touches.length ? event.touches : [event];
       var e = (event.changedTouches && event.changedTouches[0]) || touches[0];
-      if(e) {
+      if (e) {
         c.x = e.clientX || e.pageX || 0;
         c.y = e.clientY || e.pageY || 0;
       }
@@ -2668,7 +2668,7 @@ ionic.tap = {
 };
 
 function tapEventListener(type, enable, useCapture) {
-  if(enable !== false) {
+  if (enable !== false) {
     tapDoc.addEventListener(type, tapEventListeners[type], useCapture);
   } else {
     tapDoc.removeEventListener(type, tapEventListeners[type]);
@@ -2680,7 +2680,7 @@ function tapClick(e) {
   var container = tapContainingElement(e.target);
   var ele = tapTargetElement(container);
 
-  if( ionic.tap.requiresNativeClick(ele) || tapPointerMoved ) return false;
+  if (ionic.tap.requiresNativeClick(ele) || tapPointerMoved) return false;
 
   var c = ionic.tap.pointerCoord(e);
 
@@ -2700,18 +2700,18 @@ function triggerMouseEvent(type, ele, x, y) {
 }
 
 function tapClickGateKeeper(e) {
-  if(e.target.type == 'submit' && e.detail === 0) {
+  if (e.target.type == 'submit' && e.detail === 0) {
     // do not prevent click if it came from an "Enter" or "Go" keypress submit
     return;
   }
 
   // do not allow through any click events that were not created by ionic.tap
-  if( (ionic.scroll.isScrolling && ionic.tap.containsOrIsTextInput(e.target) ) ||
-      (!e.isIonicTap && !ionic.tap.requiresNativeClick(e.target)) ) {
+  if ((ionic.scroll.isScrolling && ionic.tap.containsOrIsTextInput(e.target)) ||
+      (!e.isIonicTap && !ionic.tap.requiresNativeClick(e.target))) {
     //console.log('clickPrevent', e.target.tagName);
     e.stopPropagation();
 
-    if( !ionic.tap.isLabelWithTextInput(e.target) ) {
+    if (!ionic.tap.isLabelWithTextInput(e.target)) {
       // labels clicks from native should not preventDefault othersize keyboard will not show on input focus
       e.preventDefault();
     }
@@ -2721,13 +2721,13 @@ function tapClickGateKeeper(e) {
 
 // MOUSE
 function tapMouseDown(e) {
-  if(e.isIonicTap || tapIgnoreEvent(e)) return;
+  if (e.isIonicTap || tapIgnoreEvent(e)) return;
 
-  if(tapEnabledTouchEvents) {
+  if (tapEnabledTouchEvents) {
     console.log('mousedown', 'stop event');
     e.stopPropagation();
 
-    if( (!ionic.tap.isTextInput(e.target) || tapLastTouchTarget !== e.target) && !(/^(select|option)$/i).test(e.target.tagName) ) {
+    if ((!ionic.tap.isTextInput(e.target) || tapLastTouchTarget !== e.target) && !(/^(select|option)$/i).test(e.target.tagName)) {
       // If you preventDefault on a text input then you cannot move its text caret/cursor.
       // Allow through only the text input default. However, without preventDefault on an
       // input the 300ms delay can change focus on inputs after the keyboard shows up.
@@ -2746,15 +2746,15 @@ function tapMouseDown(e) {
 }
 
 function tapMouseUp(e) {
-  if(tapEnabledTouchEvents) {
+  if (tapEnabledTouchEvents) {
     e.stopPropagation();
     e.preventDefault();
     return false;
   }
 
-  if( tapIgnoreEvent(e) || (/^(select|option)$/i).test(e.target.tagName) ) return false;
+  if (tapIgnoreEvent(e) || (/^(select|option)$/i).test(e.target.tagName)) return false;
 
-  if( !tapHasPointerMoved(e) ) {
+  if (!tapHasPointerMoved(e)) {
     tapClick(e);
   }
   tapEventListener('mousemove', false);
@@ -2763,7 +2763,7 @@ function tapMouseUp(e) {
 }
 
 function tapMouseMove(e) {
-  if( tapHasPointerMoved(e) ) {
+  if (tapHasPointerMoved(e)) {
     tapEventListener('mousemove', false);
     ionic.activator.end();
     tapPointerMoved = true;
@@ -2774,7 +2774,7 @@ function tapMouseMove(e) {
 
 // TOUCH
 function tapTouchStart(e) {
-  if( tapIgnoreEvent(e) ) return;
+  if (tapIgnoreEvent(e)) return;
 
   tapPointerMoved = false;
 
@@ -2784,14 +2784,14 @@ function tapTouchStart(e) {
   tapEventListener(tapTouchMoveListener);
   ionic.activator.start(e);
 
-  if( ionic.Platform.isIOS() && ionic.tap.isLabelWithTextInput(e.target) ) {
+  if (ionic.Platform.isIOS() && ionic.tap.isLabelWithTextInput(e.target)) {
     // if the tapped element is a label, which has a child input
     // then preventDefault so iOS doesn't ugly auto scroll to the input
     // but do not prevent default on Android or else you cannot move the text caret
     // and do not prevent default on Android or else no virtual keyboard shows up
 
-    var textInput = tapTargetElement( tapContainingElement(e.target) );
-    if( textInput !== tapActiveEle ) {
+    var textInput = tapTargetElement(tapContainingElement(e.target));
+    if (textInput !== tapActiveEle) {
       // don't preventDefault on an already focused input or else iOS's text caret isn't usable
       e.preventDefault();
     }
@@ -2799,13 +2799,13 @@ function tapTouchStart(e) {
 }
 
 function tapTouchEnd(e) {
-  if( tapIgnoreEvent(e) ) return;
+  if (tapIgnoreEvent(e)) return;
 
   tapEnableTouchEvents();
-  if( !tapHasPointerMoved(e) ) {
+  if (!tapHasPointerMoved(e)) {
     tapClick(e);
 
-    if( (/^(select|option)$/i).test(e.target.tagName) ) {
+    if ((/^(select|option)$/i).test(e.target.tagName)) {
       e.preventDefault();
     }
   }
@@ -2815,7 +2815,7 @@ function tapTouchEnd(e) {
 }
 
 function tapTouchMove(e) {
-  if( tapHasPointerMoved(e) ) {
+  if (tapHasPointerMoved(e)) {
     tapPointerMoved = true;
     tapEventListener(tapTouchMoveListener, false);
     ionic.activator.end();
@@ -2832,16 +2832,16 @@ function tapTouchCancel(e) {
 function tapEnableTouchEvents() {
   tapEnabledTouchEvents = true;
   clearTimeout(tapMouseResetTimer);
-  tapMouseResetTimer = setTimeout(function(){
+  tapMouseResetTimer = setTimeout(function() {
     tapEnabledTouchEvents = false;
   }, 2000);
 }
 
 function tapIgnoreEvent(e) {
-  if(e.isTapHandled) return true;
+  if (e.isTapHandled) return true;
   e.isTapHandled = true;
 
-  if( ionic.scroll.isScrolling && ionic.tap.containsOrIsTextInput(e.target) ) {
+  if (ionic.scroll.isScrolling && ionic.tap.containsOrIsTextInput(e.target)) {
     e.preventDefault();
     return true;
   }
@@ -2852,21 +2852,21 @@ function tapHandleFocus(ele) {
 
   var triggerFocusIn = false;
 
-  if(ele.tagName == 'SELECT') {
+  if (ele.tagName == 'SELECT') {
     // trick to force Android options to show up
     triggerMouseEvent('mousedown', ele, 0, 0);
     ele.focus && ele.focus();
     triggerFocusIn = true;
 
-  } else if(tapActiveElement() === ele) {
+  } else if (tapActiveElement() === ele) {
     // already is the active element and has focus
     triggerFocusIn = true;
 
-  } else if( (/^(input|textarea)$/i).test(ele.tagName) || ele.isContentEditable ) {
+  } else if ((/^(input|textarea)$/i).test(ele.tagName) || ele.isContentEditable) {
     triggerFocusIn = true;
     ele.focus && ele.focus();
     ele.value = ele.value;
-    if( tapEnabledTouchEvents ) {
+    if (tapEnabledTouchEvents) {
       tapTouchFocusedInput = ele;
     }
 
@@ -2874,7 +2874,7 @@ function tapHandleFocus(ele) {
     tapFocusOutActive();
   }
 
-  if(triggerFocusIn) {
+  if (triggerFocusIn) {
     tapActiveElement(ele);
     ionic.trigger('ionic.focusin', {
       target: ele
@@ -2884,7 +2884,7 @@ function tapHandleFocus(ele) {
 
 function tapFocusOutActive() {
   var ele = tapActiveElement();
-  if(ele && ((/^(input|textarea|select)$/i).test(ele.tagName) || ele.isContentEditable) ) {
+  if (ele && ((/^(input|textarea|select)$/i).test(ele.tagName) || ele.isContentEditable)) {
     console.log('tapFocusOutActive', ele.tagName);
     ele.blur();
   }
@@ -2896,10 +2896,10 @@ function tapFocusIn(e) {
   // that it's mousedown event 300ms later will change the focus to another element after
   // the keyboard shows up.
 
-  if( tapEnabledTouchEvents &&
-      ionic.tap.isTextInput( tapActiveElement() ) &&
+  if (tapEnabledTouchEvents &&
+      ionic.tap.isTextInput(tapActiveElement()) &&
       ionic.tap.isTextInput(tapTouchFocusedInput) &&
-      tapTouchFocusedInput !== e.target ) {
+      tapTouchFocusedInput !== e.target) {
 
     // 1) The pointer is from touch events
     // 2) There is an active element which is a text input
@@ -2917,14 +2917,14 @@ function tapFocusOut() {
 }
 
 function tapActiveElement(ele) {
-  if(arguments.length) {
+  if (arguments.length) {
     tapActiveEle = ele;
   }
   return tapActiveEle || document.activeElement;
 }
 
 function tapHasPointerMoved(endEvent) {
-  if(!endEvent || endEvent.target.nodeType !== 1 || !tapPointerStart || ( tapPointerStart.x === 0 && tapPointerStart.y === 0 )) {
+  if (!endEvent || endEvent.target.nodeType !== 1 || !tapPointerStart || (tapPointerStart.x === 0 && tapPointerStart.y === 0)) {
     return false;
   }
   var endCoordinates = ionic.tap.pointerCoord(endEvent);
@@ -2941,28 +2941,28 @@ function tapHasPointerMoved(endEvent) {
 
 function tapContainingElement(ele, allowSelf) {
   var climbEle = ele;
-  for(var x=0; x<6; x++) {
-    if(!climbEle) break;
-    if(climbEle.tagName === 'LABEL') return climbEle;
+  for (var x = 0; x < 6; x++) {
+    if (!climbEle) break;
+    if (climbEle.tagName === 'LABEL') return climbEle;
     climbEle = climbEle.parentElement;
   }
-  if(allowSelf !== false) return ele;
+  if (allowSelf !== false) return ele;
 }
 
 function tapTargetElement(ele) {
-  if(ele && ele.tagName === 'LABEL') {
-    if(ele.control) return ele.control;
+  if (ele && ele.tagName === 'LABEL') {
+    if (ele.control) return ele.control;
 
     // older devices do not support the "control" property
-    if(ele.querySelector) {
+    if (ele.querySelector) {
       var control = ele.querySelector('input,textarea,select');
-      if(control) return control;
+      if (control) return control;
     }
   }
   return ele;
 }
 
-ionic.DomUtil.ready(function(){
+ionic.DomUtil.ready(function() {
   var ng = typeof angular !== 'undefined' ? angular : null;
   //do nothing for e2e tests
   if (!ng || (ng && !ng.scenario)) {
@@ -2986,7 +2986,7 @@ ionic.DomUtil.ready(function(){
       // when an element is touched/clicked, it climbs up a few
       // parents to see if it is an .item or .button element
       ionic.requestAnimationFrame(function() {
-        if (ionic.tap.requiresNativeClick(e.target)) return;
+        if ((ionic.scroll && ionic.scroll.isScrolling) || ionic.tap.requiresNativeClick(e.target)) return;
         var ele = e.target;
         var eleToActivate;
 
@@ -3005,7 +3005,7 @@ ionic.DomUtil.ready(function(){
             break;
           }
           // no sense climbing past these
-          if (ele.classList.contains('pane') || ele.tagName == 'BODY' || ele.tagName == 'ION-CONTENT') {
+          if (ele.tagName == 'ION-CONTENT' || ele.classList.contains('pane') || ele.tagName == 'BODY') {
             break;
           }
           ele = ele.parentElement;
@@ -3015,14 +3015,10 @@ ionic.DomUtil.ready(function(){
           // queue that this element should be set to active
           queueElements[keyId] = eleToActivate;
 
-          // in XX milliseconds, set the queued elements to active
-          if (e.type === 'touchstart') {
-            self._activateTimeout = setTimeout(activateElements, 80);
-          } else {
-            ionic.requestAnimationFrame(activateElements);
-          }
+          // on the next frame, set the queued elements to active
+          ionic.requestAnimationFrame(activateElements);
 
-          keyId = (keyId > 19 ? 0 : keyId + 1);
+          keyId = (keyId > 29 ? 0 : keyId + 1);
         }
 
       });
@@ -3030,7 +3026,6 @@ ionic.DomUtil.ready(function(){
 
     end: function() {
       // clear out any active/queued elements after XX milliseconds
-      clearTimeout(self._activateTimeout);
       setTimeout(clear, 200);
     }
 
@@ -3057,7 +3052,7 @@ ionic.DomUtil.ready(function(){
 
   function deactivateElements() {
     if (ionic.transition && ionic.transition.isActive) {
-      setTimeout(deactivateElements, 500);
+      setTimeout(deactivateElements, 400);
       return;
     }
 
@@ -3083,7 +3078,7 @@ ionic.DomUtil.ready(function(){
    */
   ionic.Utils = {
 
-    arrayMove: function (arr, old_index, new_index) {
+    arrayMove: function(arr, old_index, new_index) {
       if (new_index >= arr.length) {
         var k = new_index - arr.length;
         while ((k--) + 1) {
@@ -3180,7 +3175,7 @@ ionic.DomUtil.ready(function(){
       if (protoProps && protoProps.hasOwnProperty('constructor')) {
         child = protoProps.constructor;
       } else {
-        child = function(){ return parent.apply(this, arguments); };
+        child = function() { return parent.apply(this, arguments); };
       }
 
       // Add static properties to the constructor function, if supplied.
@@ -3188,7 +3183,7 @@ ionic.DomUtil.ready(function(){
 
       // Set the prototype chain to inherit from `parent`, without calling
       // `parent`'s constructor function.
-      var Surrogate = function(){ this.constructor = child; };
+      var Surrogate = function() { this.constructor = child; };
       Surrogate.prototype = parent.prototype;
       child.prototype = new Surrogate();
 
@@ -3206,7 +3201,7 @@ ionic.DomUtil.ready(function(){
     // Extend adapted from Underscore.js
     extend: function(obj) {
        var args = Array.prototype.slice.call(arguments, 1);
-       for(var i = 0; i < args.length; i++) {
+       for (var i = 0; i < args.length; i++) {
          var source = args[i];
          if (source) {
            for (var prop in source) {
@@ -3229,7 +3224,7 @@ ionic.DomUtil.ready(function(){
       var index = uid.length;
       var digit;
 
-      while(index) {
+      while (index) {
         index--;
         digit = uid[index].charCodeAt(0);
         if (digit == 57 /*'9'*/) {
@@ -3672,18 +3667,18 @@ ionic.viewport = {
 function viewportLoadTag() {
   var x;
 
-  for(x=0; x<document.head.children.length; x++) {
-    if(document.head.children[x].name == 'viewport') {
+  for (x = 0; x < document.head.children.length; x++) {
+    if (document.head.children[x].name == 'viewport') {
       viewportTag = document.head.children[x];
       break;
     }
   }
 
-  if(viewportTag) {
+  if (viewportTag) {
     var props = viewportTag.content.toLowerCase().replace(/\s+/g, '').split(',');
     var keyValue;
-    for(x=0; x<props.length; x++) {
-      if(props[x]) {
+    for (x = 0; x < props.length; x++) {
+      if (props[x]) {
         keyValue = props[x].split('=');
         viewportProperties[ keyValue[0] ] = (keyValue.length > 1 ? keyValue[1] : '_');
       }
@@ -3708,10 +3703,10 @@ function viewportUpdate() {
   delete viewportProperties.height;
   viewportProperties.width = DEVICE_WIDTH;
 
-  if( p.isIPad() ) {
+  if (p.isIPad()) {
     // iPad
 
-    if( version > 7 ) {
+    if (version > 7) {
       // iPad >= 7.1
       // https://issues.apache.org/jira/browse/CB-4323
       delete viewportProperties.width;
@@ -3719,41 +3714,41 @@ function viewportUpdate() {
     } else {
       // iPad <= 7.0
 
-      if( p.isWebView() ) {
+      if (p.isWebView()) {
         // iPad <= 7.0 WebView
 
-        if( orientation == 90 ) {
+        if (orientation == 90) {
           // iPad <= 7.0 WebView Landscape
           viewportProperties.height = '0';
 
-        } else if(version == 7) {
+        } else if (version == 7) {
           // iPad <= 7.0 WebView Portait
           viewportProperties.height = DEVICE_HEIGHT;
         }
       } else {
         // iPad <= 6.1 Browser
-        if(version < 7) {
+        if (version < 7) {
           viewportProperties.height = '0';
         }
       }
     }
 
-  } else if( p.isIOS() ) {
+  } else if (p.isIOS()) {
     // iPhone
 
-    if( p.isWebView() ) {
+    if (p.isWebView()) {
       // iPhone WebView
 
-      if(version > 7) {
+      if (version > 7) {
         // iPhone >= 7.1 WebView
         delete viewportProperties.width;
 
-      } else if(version < 7) {
+      } else if (version < 7) {
         // iPhone <= 6.1 WebView
         // if height was set it needs to get removed with this hack for <= 6.1
-        if( initHeight ) viewportProperties.height = '0';
+        if (initHeight) viewportProperties.height = '0';
 
-      } else if(version == 7) {
+      } else if (version == 7) {
         //iPhone == 7.0 WebView
         viewportProperties.height = DEVICE_HEIGHT;
       }
@@ -3764,23 +3759,23 @@ function viewportUpdate() {
       if (version < 7) {
         // iPhone <= 6.1 Browser
         // if height was set it needs to get removed with this hack for <= 6.1
-        if( initHeight ) viewportProperties.height = '0';
+        if (initHeight) viewportProperties.height = '0';
       }
     }
 
   }
 
   // only update the viewport tag if there was a change
-  if(initWidth !== viewportProperties.width || initHeight !== viewportProperties.height) {
+  if (initWidth !== viewportProperties.width || initHeight !== viewportProperties.height) {
     viewportTagUpdate();
   }
 }
 
 function viewportTagUpdate() {
   var key, props = [];
-  for(key in viewportProperties) {
-    if( viewportProperties[key] ) {
-      props.push(key + (viewportProperties[key] == '_' ? '' : '=' + viewportProperties[key]) );
+  for (key in viewportProperties) {
+    if (viewportProperties[key]) {
+      props.push(key + (viewportProperties[key] == '_' ? '' : '=' + viewportProperties[key]));
     }
   }
 
@@ -3790,7 +3785,7 @@ function viewportTagUpdate() {
 ionic.Platform.ready(function() {
   viewportLoadTag();
 
-  window.addEventListener("orientationchange", function(){
+  window.addEventListener("orientationchange", function() {
     setTimeout(viewportUpdate, 1000);
   }, false);
 });
@@ -7062,7 +7057,7 @@ ionic.scroll = {
  */
 
 /**
- * @license AngularJS v1.3.4
+ * @license AngularJS v1.3.5
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -7117,7 +7112,7 @@ function minErr(module, ErrorConstructor) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.3.4/' +
+    message = message + '\nhttp://errors.angularjs.org/1.3.5/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i - 2) + '=' +
@@ -7289,8 +7284,8 @@ if ('i' !== 'I'.toLowerCase()) {
 }
 
 
-var /** holds major version number for IE or NaN for real browsers */
-    msie,
+var
+    msie,             // holds major version number for IE, or NaN if UA is not IE.
     jqLite,           // delay binding since jQuery could be loaded after us.
     jQuery,           // delay binding
     slice             = [].slice,
@@ -9163,11 +9158,11 @@ function toDebugString(obj) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.3.4',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.3.5',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 3,
-  dot: 4,
-  codeName: 'highfalutin-petroglyph'
+  dot: 5,
+  codeName: 'cybernetic-mercantilism'
 };
 
 
@@ -13530,7 +13525,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    * Retrieves or overrides the default regular expression that is used for whitelisting of safe
    * urls during a[href] sanitization.
    *
-   * The sanitization is a security measure aimed at prevent XSS attacks via html links.
+   * The sanitization is a security measure aimed at preventing XSS attacks via html links.
    *
    * Any url about to be assigned to a[href] via data-binding is first normalized and turned into
    * an absolute url. Afterwards, the url is matched against the `aHrefSanitizationWhitelist`
@@ -13597,7 +13592,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    * * `ng-binding` CSS class
    * * `$binding` data property containing an array of the binding expressions
    *
-   * You may want to use this in production for a significant performance boost. See
+   * You may want to disable this in production for a significant performance boost. See
    * {@link guide/production#disabling-debug-data Disabling Debug Data} for more.
    *
    * The default value is true.
@@ -16154,12 +16149,14 @@ function $HttpProvider() {
      *      `{function(data, headersGetter)|Array.<function(data, headersGetter)>}` –
      *      transform function or an array of such functions. The transform function takes the http
      *      request body and headers and returns its transformed (typically serialized) version.
-     *      See {@link #overriding-the-default-transformations-per-request Overriding the Default Transformations}
+     *      See {@link ng.$http#overriding-the-default-transformations-per-request
+     *      Overriding the Default Transformations}
      *    - **transformResponse** –
      *      `{function(data, headersGetter)|Array.<function(data, headersGetter)>}` –
      *      transform function or an array of such functions. The transform function takes the http
      *      response body and headers and returns its transformed (typically deserialized) version.
-     *      See {@link #overriding-the-default-transformations-per-request Overriding the Default Transformations}
+     *      See {@link ng.$http#overriding-the-default-transformations-per-request
+     *      Overriding the Default Transformations}
      *    - **cache** – `{boolean|Cache}` – If true, a default $http cache will be used to cache the
      *      GET request, otherwise if a cache instance built with
      *      {@link ng.$cacheFactory $cacheFactory}, this cache will be used for
@@ -16809,7 +16806,9 @@ function createHttpBackend($browser, createXhr, $browserDefer, callbacks, rawDoc
 
     function completeRequest(callback, status, response, headersString, statusText) {
       // cancel timeout and subsequent timeout promise resolution
-      timeoutId && $browserDefer.cancel(timeoutId);
+      if (timeoutId !== undefined) {
+        $browserDefer.cancel(timeoutId);
+      }
       jsonpDone = xhr = null;
 
       callback(status, response, headersString, statusText);
@@ -19291,13 +19290,13 @@ Parser.prototype = {
       ensureSafeObject(context, expressionText);
       ensureSafeFunction(fn, expressionText);
 
-      // IE stupidity! (IE doesn't have apply for some native functions)
+      // IE doesn't have apply for some native functions
       var v = fn.apply
             ? fn.apply(context, args)
             : fn(args[0], args[1], args[2], args[3], args[4]);
 
       return ensureSafeObject(v, expressionText);
-    };
+      };
   },
 
   // This is used with json array declaration
@@ -22979,14 +22978,9 @@ function $TemplateRequestProvider() {
       var transformResponse = $http.defaults && $http.defaults.transformResponse;
 
       if (isArray(transformResponse)) {
-        var original = transformResponse;
-        transformResponse = [];
-        for (var i = 0; i < original.length; ++i) {
-          var transformer = original[i];
-          if (transformer !== defaultHttpResponseTransform) {
-            transformResponse.push(transformer);
-          }
-        }
+        transformResponse = transformResponse.filter(function(transformer) {
+          return transformer !== defaultHttpResponseTransform;
+        });
       } else if (transformResponse === defaultHttpResponseTransform) {
         transformResponse = null;
       }
@@ -23004,12 +22998,12 @@ function $TemplateRequestProvider() {
           return html;
         }, handleError);
 
-      function handleError() {
+      function handleError(resp) {
         self.totalPendingRequests--;
         if (!ignoreRequestError) {
           throw $compileMinErr('tpload', 'Failed to load template: {0}', tpl);
         }
-        return $q.reject();
+        return $q.reject(resp);
       }
     }
 
@@ -24645,9 +24639,8 @@ var htmlAnchorDirective = valueFn({
  * make the link go to the wrong URL if the user clicks it before
  * Angular has a chance to replace the `{{hash}}` markup with its
  * value. Until Angular replaces the markup the link will be broken
- * and will most likely return a 404 error.
- *
- * The `ngHref` directive solves this problem.
+ * and will most likely return a 404 error. The `ngHref` directive
+ * solves this problem.
  *
  * The wrong way to write it:
  * ```html
@@ -32199,7 +32192,6 @@ var scriptDirective = ['$templateCache', function($templateCache) {
     compile: function(element, attr) {
       if (attr.type == 'text/ng-template') {
         var templateUrl = attr.id,
-            // IE is not consistent, in scripts we have to read .text but in other nodes we have to read .textContent
             text = element[0].text;
 
         $templateCache.put(templateUrl, text);
@@ -32420,7 +32412,7 @@ var selectDirective = ['$compile', '$parse', function($compile,   $parse) {
       self.removeOption = function(value) {
         if (this.hasOption(value)) {
           delete optionsMap[value];
-          if (ngModelCtrl.$viewValue == value) {
+          if (ngModelCtrl.$viewValue === value) {
             this.renderUnknownOption(value);
           }
         }
@@ -32887,18 +32879,23 @@ var selectDirective = ['$compile', '$parse', function($compile,   $parse) {
               updateLabelMap(labelMap, option.label, false);
               option.element.remove();
             }
-            forEach(labelMap, function(count, label) {
-              if (count > 0) {
-                selectCtrl.addOption(label);
-              } else if (count < 0) {
-                selectCtrl.removeOption(label);
-              }
-            });
           }
           // remove any excessive OPTGROUPs from select
           while (optionGroupsCache.length > groupIndex) {
-            optionGroupsCache.pop()[0].element.remove();
+            // remove all the labels in the option group
+            optionGroup = optionGroupsCache.pop();
+            for (index = 1; index < optionGroup.length; ++index) {
+              updateLabelMap(labelMap, optionGroup[index].label, false);
+            }
+            optionGroup[0].element.remove();
           }
+          forEach(labelMap, function(count, label) {
+            if (count > 0) {
+              selectCtrl.addOption(label);
+            } else if (count < 0) {
+              selectCtrl.removeOption(label);
+            }
+          });
         }
       }
     }
@@ -32984,7 +32981,7 @@ var styleDirective = valueFn({
  */
 
 /**
- * @license AngularJS v1.3.4
+ * @license AngularJS v1.3.5
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -35128,7 +35125,7 @@ angular.module('ngAnimate', ['ng'])
  */
 
 /**
- * @license AngularJS v1.3.4
+ * @license AngularJS v1.3.5
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -35795,7 +35792,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
                   '" ');
       }
       html.push('href="',
-                url.replace('"', '&quot;'),
+                url.replace(/"/g, '&quot;'),
                 '">');
       addText(text);
       html.push('</a>');
@@ -39087,7 +39084,7 @@ angular.module('ui.router.compat')
 var deprecated = {
   method: function(msg, log, fn) {
     var called = false;
-    return function deprecatedMethod(){
+    return function deprecatedMethod() {
       if (!called) {
         called = true;
         log(msg);
@@ -39098,7 +39095,7 @@ var deprecated = {
 
   field: function(msg, log, parent, field, val) {
     var called = false;
-    var getter = function(){
+    var getter = function() {
       if (!called) {
         called = true;
         log(msg);
@@ -39121,7 +39118,6 @@ var deprecated = {
     return;
   }
 };
-
 
 var IonicModule = angular.module('ionic', ['ngAnimate', 'ngSanitize', 'ui.router']),
   extend = angular.extend,
@@ -39330,18 +39326,18 @@ function($rootScope, $compile, $animate, $timeout, $ionicTemplateLoader, $ionicP
 jqLite.prototype.addClass = function(cssClasses) {
   var x, y, cssClass, el, splitClasses, existingClasses;
   if (cssClasses && cssClasses != 'ng-scope' && cssClasses != 'ng-isolate-scope') {
-    for(x=0; x<this.length; x++) {
+    for (x = 0; x < this.length; x++) {
       el = this[x];
-      if(el.setAttribute) {
+      if (el.setAttribute) {
 
-        if(cssClasses.indexOf(' ') < 0 && el.classList.add) {
+        if (cssClasses.indexOf(' ') < 0 && el.classList.add) {
           el.classList.add(cssClasses);
         } else {
           existingClasses = (' ' + (el.getAttribute('class') || '') + ' ')
             .replace(/[\n\t]/g, " ");
           splitClasses = cssClasses.split(' ');
 
-          for (y=0; y<splitClasses.length; y++) {
+          for (y = 0; y < splitClasses.length; y++) {
             cssClass = splitClasses[y].trim();
             if (existingClasses.indexOf(' ' + cssClass + ' ') === -1) {
               existingClasses += cssClass + ' ';
@@ -39358,15 +39354,15 @@ jqLite.prototype.addClass = function(cssClasses) {
 jqLite.prototype.removeClass = function(cssClasses) {
   var x, y, splitClasses, cssClass, el;
   if (cssClasses) {
-    for(x=0; x<this.length; x++) {
+    for (x = 0; x < this.length; x++) {
       el = this[x];
-      if(el.getAttribute) {
-        if(cssClasses.indexOf(' ') < 0 && el.classList.remove) {
+      if (el.getAttribute) {
+        if (cssClasses.indexOf(' ') < 0 && el.classList.remove) {
           el.classList.remove(cssClasses);
         } else {
           splitClasses = cssClasses.split(' ');
 
-          for (y=0; y<splitClasses.length; y++) {
+          for (y = 0; y < splitClasses.length; y++) {
             cssClass = splitClasses[y];
             el.setAttribute('class', (
                 (" " + (el.getAttribute('class') || '') + " ")
@@ -39395,7 +39391,7 @@ IonicModule
       getDistance: function() { return opts.element.prop('offsetWidth'); },
       onDragStart: angular.noop,
       onDrag: angular.noop,
-      onDragEnd: angular.noop,
+      onDragEnd: angular.noop
     }, options);
 
     var dragStartGesture = ionic.onGesture('dragstart', handleDragStart, element[0]);
@@ -39527,7 +39523,7 @@ function($document, $timeout) {
   };
 
   function retain() {
-    if ( (++backdropHolds) === 1 ) {
+    if ((++backdropHolds) === 1) {
       el.addClass('visible');
       ionic.requestAnimationFrame(function() {
         backdropHolds && el.addClass('active');
@@ -39535,7 +39531,7 @@ function($document, $timeout) {
     }
   }
   function release() {
-    if ( (--backdropHolds) === 0 ) {
+    if ((--backdropHolds) === 0) {
       el.removeClass('active');
       $timeout(function() {
         !backdropHolds && el.removeClass('visible');
@@ -39624,7 +39620,7 @@ IonicModule
      * @returns {$ionicBody} The $ionicBody service so methods can be chained.
      */
     addClass: function() {
-      for(var x=0; x<arguments.length; x++) {
+      for (var x = 0; x < arguments.length; x++) {
         $document[0].body.classList.add(arguments[x]);
       }
       return this;
@@ -39637,7 +39633,7 @@ IonicModule
      * @returns {$ionicBody} The $ionicBody service so methods can be chained.
      */
     removeClass: function() {
-      for(var x=0; x<arguments.length; x++) {
+      for (var x = 0; x < arguments.length; x++) {
         $document[0].body.classList.remove(arguments[x]);
       }
       return this;
@@ -39656,7 +39652,7 @@ IonicModule
      */
     enableClass: function(shouldEnableClass) {
       var args = Array.prototype.slice.call(arguments).slice(1);
-      if(shouldEnableClass) {
+      if (shouldEnableClass) {
         this.addClass.apply(this, args);
       } else {
         this.removeClass.apply(this, args);
@@ -39672,7 +39668,7 @@ IonicModule
      * @returns {$ionicBody} The $ionicBody service so methods can be chained.
      */
     append: function(ele) {
-      $document[0].body.appendChild( ele.length ? ele[0] : ele );
+      $document[0].body.appendChild(ele.length ? ele[0] : ele);
       return this;
     },
     /**
@@ -39695,36 +39691,34 @@ IonicModule
 function($document, $ionicBody, $timeout) {
   var fallbackTimer, isAttached;
   var CSS_HIDE = 'click-block-hide';
+  var pendingShow;
 
   var cb = $document[0].createElement('div');
   cb.className = 'click-block';
 
   return {
-    show: function() {
+    show: function(autoExpire) {
+      pendingShow = true;
       // cancel the fallback timer
-      $timeout.cancel( fallbackTimer );
+      $timeout.cancel(fallbackTimer);
 
-      ionic.requestAnimationFrame(function(){
-        if(isAttached) {
-          cb.classList.remove(CSS_HIDE);
-        } else {
-          $ionicBody.append(cb);
-          isAttached = true;
+      ionic.requestAnimationFrame(function() {
+        if (pendingShow) {
+          if (isAttached) {
+            cb.classList.remove(CSS_HIDE);
+          } else {
+            $ionicBody.append(cb);
+            isAttached = true;
+          }
         }
       });
 
-      fallbackTimer = $timeout(function(){
-        cb.classList.add(CSS_HIDE);
-      }, 750);
+      fallbackTimer = $timeout(this.hide, autoExpire || 310);
     },
     hide: function() {
-      // cancel the fallback timer
-      $timeout.cancel( fallbackTimer );
-
-      // should be a minimum time it should hide
-      ionic.requestAnimationFrame(function(){
-        cb.classList.add(CSS_HIDE);
-      });
+      pendingShow = false;
+      $timeout.cancel(fallbackTimer);
+      cb.classList.add(CSS_HIDE);
     }
   };
 }]);
@@ -41160,7 +41154,7 @@ function($rootScope, $state, $location, $document, $ionicPlatform, $ionicHistory
  * var myApp = angular.module('reallyCoolApp', ['ionic']);
  *
  * myApp.config(function($ionicConfigProvider) {
- *   $ionicConfigProvider.templates.maxCache(20);
+ *   $ionicConfigProvider.views.maxCache(20);
  *
  *   // note that you can also chain configs
  *   $ionicConfigProvider.backButton.text('Go Back').icon('ion-chevron-left');
@@ -43166,7 +43160,7 @@ function($ionicTemplateLoader, $ionicBackdrop, $q, $timeout, $rootScope, $ionicB
  * ([license](https://github.com/angular-ui/bootstrap/blob/master/LICENSE))
  */
 IonicModule
-.factory('$ionicPosition', ['$document', '$window', function ($document, $window) {
+.factory('$ionicPosition', ['$document', '$window', function($document, $window) {
 
   function getStyle(el, cssprop) {
     if (el.currentStyle) { //IE
@@ -43183,17 +43177,17 @@ IonicModule
    * @param element - raw DOM element
    */
   function isStaticPositioned(element) {
-    return (getStyle(element, 'position') || 'static' ) === 'static';
+    return (getStyle(element, 'position') || 'static') === 'static';
   }
 
   /**
    * returns the closest, non-statically positioned parentOffset of a given element
    * @param element
    */
-  var parentOffsetEl = function (element) {
+  var parentOffsetEl = function(element) {
     var docDomEl = $document[0];
     var offsetParent = element.offsetParent || docDomEl;
-    while (offsetParent && offsetParent !== docDomEl && isStaticPositioned(offsetParent) ) {
+    while (offsetParent && offsetParent !== docDomEl && isStaticPositioned(offsetParent)) {
       offsetParent = offsetParent.offsetParent;
     }
     return offsetParent || docDomEl;
@@ -43208,7 +43202,7 @@ IonicModule
      * @param {element} element The element to get the position of.
      * @returns {object} Returns an object containing the properties top, left, width and height.
      */
-    position: function (element) {
+    position: function(element) {
       var elBCR = this.offset(element);
       var offsetParentBCR = { top: 0, left: 0 };
       var offsetParentEl = parentOffsetEl(element[0]);
@@ -43235,7 +43229,7 @@ IonicModule
      * @param {element} element The element to get the offset of.
      * @returns {object} Returns an object containing the properties top, left, width and height.
      */
-    offset: function (element) {
+    offset: function(element) {
       var boundingClientRect = element[0].getBoundingClientRect();
       return {
         width: boundingClientRect.width || element.prop('offsetWidth'),
@@ -43905,7 +43899,7 @@ IonicModule
     clearHistory: 'clearHistory'
   };
 
-  forEach(methodsMap, function(newMethod, oldMethod){
+  forEach(methodsMap, function(newMethod, oldMethod) {
     methodsMap[oldMethod] = function() {
       warn('.' + oldMethod, '.' + newMethod);
       return $ionicHistory[newMethod].apply(this, arguments);
@@ -44081,9 +44075,6 @@ function($timeout, $document, $q, $ionicClickBlock, $ionicConfig, $ionicNavBarDe
         },
 
         render: function(registerData, callback) {
-          var enteringData = getTransitionData(viewLocals, enteringEle, registerData.direction, enteringView);
-          var transitionFn = $ionicConfig.transitions.views[enteringData.transition];
-
           // disconnect the leaving scope before reconnecting or creating a scope for the entering view
           leavingEle && ionic.Utils.disconnectScope(leavingEle.scope());
 
@@ -44091,15 +44082,14 @@ function($timeout, $document, $q, $ionicClickBlock, $ionicConfig, $ionicNavBarDe
             // it was already found in the DOM, just reconnect the scope
             ionic.Utils.reconnectScope(enteringEle.scope());
 
-            // set the styles of where this element will end up going so
-            // the DOM has some time to render its correct starting point
-            transitionFn(enteringEle, null, enteringData.direction, false).run(0);
-
           } else {
             // the entering element is not already in the DOM
             // set that the entering element should be "staged" and its
             // styles of where this element will go before it hits the DOM
             navViewAttr(enteringEle, VIEW_STATUS_STAGED);
+
+            var enteringData = getTransitionData(viewLocals, enteringEle, registerData.direction, enteringView);
+            var transitionFn = $ionicConfig.transitions.views[enteringData.transition];
             transitionFn(enteringEle, null, enteringData.direction, true).run(0);
 
             historyCursorAttr(enteringEle, registerData.isHistoryRoot ? HISTORY_ROOT : HISTORY_AFTER_ROOT);
@@ -44121,7 +44111,7 @@ function($timeout, $document, $q, $ionicClickBlock, $ionicConfig, $ionicNavBarDe
           // update that this view was just accessed
           enteringEle.data(DATA_VIEW_ACCESSED, Date.now());
 
-          $timeout(callback, 16);
+          callback && callback();
         },
 
         transition: function(direction, enableBack) {
@@ -44446,7 +44436,7 @@ function($scope, $element, $attrs, $q, $ionicConfig, $ionicHistory) {
 
 
   self.updateBackButton = function() {
-    if ( (isBackShown && isNavBackShown && isBackEnabled) !== isBackElementShown) {
+    if ((isBackShown && isNavBackShown && isBackEnabled) !== isBackElementShown) {
       isBackElementShown = isBackShown && isNavBackShown && isBackEnabled;
       var backBtnEle = getEle(BACK_BUTTON);
       backBtnEle && backBtnEle.classList[ isBackElementShown ? 'remove' : 'add' ](HIDE);
@@ -45309,6 +45299,7 @@ IonicModule
 function($scope, $element, $attrs, $compile, $controller, $ionicNavBarDelegate, $ionicNavViewDelegate, $ionicHistory, $ionicViewSwitcher) {
 
   var DATA_ELE_IDENTIFIER = '$eleId';
+  var DATA_DESTROY_ELE = '$destroyEle';
   var VIEW_STATUS_ACTIVE = 'active';
   var VIEW_STATUS_CACHED = 'cached';
   var HISTORY_AFTER_ROOT = 'after-root';
@@ -45337,6 +45328,8 @@ function($scope, $element, $attrs, $compile, $controller, $ionicNavBarDelegate, 
 
     var deregisterInstance = $ionicNavViewDelegate._registerInstance(self, $attrs.delegateHandle);
     $scope.$on('$destroy', deregisterInstance);
+
+    $scope.$on('$ionicHistory.deselect', self.cacheCleanup);
 
     return viewData;
   };
@@ -45456,12 +45449,27 @@ function($scope, $element, $attrs, $compile, $controller, $ionicNavBarDelegate, 
   };
 
 
+  self.cacheCleanup = function() {
+    var viewElements = $element.children();
+    for (var x = 0, l = viewElements.length; x < l; x++) {
+      if (viewElements.eq(x).data(DATA_DESTROY_ELE)) {
+        $ionicViewSwitcher.destroyViewEle(viewElements.eq(x));
+      }
+    }
+  };
+
+
   self.clearCache = function() {
     var viewElements = $element.children();
+    var viewElement, viewScope;
 
     for (var x = 0, l = viewElements.length; x < l; x++) {
-      if (navViewAttr(viewElements.eq(x)) == VIEW_STATUS_CACHED) {
-        $ionicViewSwitcher.destroyViewEle(viewElements.eq(x));
+      viewElement = viewElements.eq(x);
+      if (navViewAttr(viewElement) == VIEW_STATUS_CACHED) {
+        $ionicViewSwitcher.destroyViewEle(viewElement);
+      } else if (navViewAttr(viewElement) == VIEW_STATUS_ACTIVE) {
+        viewScope = viewElement.scope();
+        viewScope && viewScope.$broadcast('$ionicView.clearCache');
       }
     }
 
@@ -46653,6 +46661,7 @@ function($scope, $ionicHistory, $element) {
       _selectedTab = null;
       tab.$tabSelected = false;
       (tab.onDeselect || angular.noop)();
+      tab.$broadcast && tab.$broadcast('$ionicHistory.deselect');
     }
   };
 
@@ -46685,7 +46694,7 @@ function($scope, $ionicHistory, $element) {
       (tab.onSelect || angular.noop)();
 
       if (shouldEmitEvent) {
-        var viewData = {
+        $scope.$emit('$ionicHistory.change', {
           type: 'tab',
           tabIndex: tabIndex,
           historyId: tab.$historyId,
@@ -46694,11 +46703,20 @@ function($scope, $ionicHistory, $element) {
           title: tab.title,
           url: tab.href,
           uiSref: tab.uiSref
-        };
-        $scope.$emit('$ionicHistory.change', viewData);
+        });
       }
     }
   };
+
+  self.hasActiveScope = function() {
+    for (var x = 0; x < self.tabs.length; x++) {
+      if ($ionicHistory.isActiveScope(self.tabs[x])) {
+        return true;
+      }
+    }
+    return false;
+  };
+
 }]);
 
 IonicModule
@@ -46718,7 +46736,7 @@ function($scope, $element, $attrs, $compile, $rootScope, $ionicViewSwitcher) {
   var deregisters = [];
   var viewTitle;
 
-  var deregIonNavBarInit = $scope.$on('ionNavBar.init', function(ev, delegateHandle){
+  var deregIonNavBarInit = $scope.$on('ionNavBar.init', function(ev, delegateHandle) {
     // this view has its own ion-nav-bar, remember the navBarDelegateHandle for this view
     ev.stopPropagation();
     navBarDelegateHandle = delegateHandle;
@@ -46832,7 +46850,6 @@ function($scope, $element, $attrs, $compile, $rootScope, $ionicViewSwitcher) {
   };
 
 }]);
-
 
 /*
  * We don't document the ionActionSheet directive, we instead document
@@ -49404,10 +49421,10 @@ IonicModule
   };
 }])
 
-.directive('ionStopEvent', function () {
+.directive('ionStopEvent', function() {
   return {
     restrict: 'A',
-    link: function (scope, element, attr) {
+    link: function(scope, element, attr) {
       element.bind(attr.ionStopEvent, eventStopPropagation);
     }
   };
@@ -49892,14 +49909,14 @@ function($timeout, $ionicGesture, $window) {
         function onDragX(e) {
           if (!sideMenuCtrl.isDraggableTarget(e)) return;
 
-          if ( getPrimaryScrollAxis(e) == 'x') {
+          if (getPrimaryScrollAxis(e) == 'x') {
             sideMenuCtrl._handleDrag(e);
             e.gesture.srcEvent.preventDefault();
           }
         }
 
         function onDragY(e) {
-          if ( getPrimaryScrollAxis(e) == 'x' ) {
+          if (getPrimaryScrollAxis(e) == 'x') {
             e.gesture.srcEvent.preventDefault();
           }
         }
@@ -49933,9 +49950,9 @@ function($timeout, $ionicGesture, $window) {
               var xDistance = Math.abs(endCoord.x - startCoord.x);
               var yDistance = Math.abs(endCoord.y - startCoord.y);
 
-              var scrollAxis = ( xDistance < yDistance ? 'y' : 'x' );
+              var scrollAxis = (xDistance < yDistance ? 'y' : 'x');
 
-              if ( Math.max(xDistance, yDistance) > 30 ) {
+              if (Math.max(xDistance, yDistance) > 30) {
                 // ok, we pretty much know which way they're going
                 // let's lock it in
                 primaryScrollAxis = scrollAxis;
@@ -50482,7 +50499,7 @@ IonicModule
 function($compile, $ionicConfig, $ionicBind, $ionicViewSwitcher) {
 
   //Returns ' key="value"' if value exists
-  function attrStr(k,v) {
+  function attrStr(k, v) {
     return angular.isDefined(v) ? ' ' + k + '="' + v + '"' : '';
   }
   return {
@@ -50523,7 +50540,7 @@ function($compile, $ionicConfig, $ionicBind, $ionicViewSwitcher) {
           tabContentEle.children[0].classList.add('view-container');
           isNavView = true;
         }
-        if(childElementCount === 1) {
+        if (childElementCount === 1) {
           // make the 1 child element the primary tab content container
           tabContentEle = tabContentEle.children[0];
         }
@@ -50592,7 +50609,7 @@ function($compile, $ionicConfig, $ionicBind, $ionicViewSwitcher) {
               childScope = $scope.$new();
               childElement = jqLite(tabContentEle);
               $ionicViewSwitcher.viewEleIsActive(childElement, true);
-              tabsCtrl.$element.append( childElement );
+              tabsCtrl.$element.append(childElement);
               $compile(childElement)(childScope);
               isTabContentAttached = true;
             }
@@ -50603,24 +50620,34 @@ function($compile, $ionicConfig, $ionicBind, $ionicViewSwitcher) {
           } else if (isTabContentAttached && childElement) {
             // this tab should NOT be selected, and it is already in the DOM
 
-            if ( $ionicConfig.views.maxCache() > 0 ) {
+            if ($ionicConfig.views.maxCache() > 0) {
               // keep the tabs in the DOM, only css hide it
               $ionicViewSwitcher.viewEleIsActive(childElement, false);
 
             } else {
               // do not keep tabs in the DOM
-              childScope && childScope.$destroy();
-              childElement && childElement.remove();
-              isTabContentAttached = childScope = childElement = null;
+              destroyTab();
             }
 
           }
+        }
+
+        function destroyTab() {
+          childScope && childScope.$destroy();
+          isTabContentAttached && childElement && childElement.remove();
+          isTabContentAttached = childScope = childElement = null;
         }
 
         $scope.$watch('$tabSelected', tabSelected);
 
         $scope.$on('$ionicView.afterEnter', function() {
           $ionicViewSwitcher.viewEleIsActive(childElement, $scope.$tabSelected);
+        });
+
+        $scope.$on('$ionicView.clearCache', function() {
+          if (!$scope.$tabSelected) {
+            destroyTab();
+          }
         });
 
       };
@@ -50673,7 +50700,7 @@ IonicModule
         }
 
         $scope.isHidden = function() {
-          if($attrs.hidden === 'true' || $attrs.hidden === true)return true;
+          if ($attrs.hidden === 'true' || $attrs.hidden === true) return true;
           return false;
         };
 
@@ -50754,15 +50781,12 @@ function($ionicTabsDelegate, $ionicConfig, $ionicHistory) {
       innerElement.append(tElement.contents());
 
       tElement.append(innerElement)
-              .addClass( 'tabs-' + $ionicConfig.tabs.position() )
-              .addClass( 'tabs-' + $ionicConfig.tabs.style() );
+              .addClass('tabs-' + $ionicConfig.tabs.position() + ' tabs-' + $ionicConfig.tabs.style());
 
       return { pre: prelink, post: postLink };
       function prelink($scope, $element, $attr, tabsCtrl) {
         var deregisterInstance = $ionicTabsDelegate._registerInstance(
-          tabsCtrl, $attr.delegateHandle, function() {
-            return $ionicHistory.isActiveScope($scope);
-          }
+          tabsCtrl, $attr.delegateHandle, tabsCtrl.hasActiveScope
         );
 
         tabsCtrl.$scope = $scope;
@@ -50776,7 +50800,7 @@ function($ionicTabsDelegate, $ionicConfig, $ionicHistory) {
           $scope.$hasTabsTop = isTabsTop && !isHidden;
         });
 
-        $scope.$on('$destroy', function(){
+        $scope.$on('$destroy', function() {
           // variable to inform child tabs that they're all being blown away
           // used so that while destorying an individual tab, each one
           // doesn't select the next tab as the active one, which causes unnecessary
